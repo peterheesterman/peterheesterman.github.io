@@ -1,0 +1,90 @@
+.body {
+    background: #fcf6cf6;
+    font-size: 1.25em;
+    font-family: 'Montserrat', sans-serif;
+    width: 85%;
+    max-width: 800px;
+    margin: 4em auto;
+    color: rgba(117, 117, 117, 1);
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 2.3em;
+    color: black;
+    margin-bottom: 0em;
+}
+
+h3 {
+    font-weight: 700;
+    color: black;
+}
+
+.links>a {
+    color: #959da5;
+    text-decoration: none;
+    fill: currentColor;
+}
+
+.links>a:nth-child(1):hover {
+    color: #639cd9;
+}
+
+.links>a:nth-child(2):hover {
+    color: black;
+}
+
+.links>a:nth-child(3):hover {
+    color: #0a66c2;
+}
+
+.list {
+    padding-top: 1.6em;
+    font-size: 0.95em;
+}
+
+ul>li {
+    line-height: 1.3;
+}
+
+.sections {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    background-color: black;
+    border: none;
+    height: 37px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 22px;
+    color: white;
+    border-radius: 10px;
+}
+
+.goto {
+   color: #11FF00;
+}
+
+@media only screen and (min-width:420px) and (max-width:550px) {
+    h1 {
+        font-size: 1.7em;
+    }
+}
+
+@media only screen and (min-width:361px) and (max-width:419px) {
+    h1 {
+        font-size: 1.4em;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    h1 {
+        font-size: 1.3em;
+    }
+    .body {
+        font-size: 1.2em;
+    }
+}
