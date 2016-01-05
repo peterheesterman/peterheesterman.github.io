@@ -10,146 +10,153 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
     </head>
     <body>
         <div class="main-page" id="content"></div>
-        <!--<script type="text/babel" src="scripts/example.js"></script>-->
+        
         <script type="text/babel">
 
-            var data = [
-                {id: 1, author: "Pete Hunt", text: "This is one comment!!"},
-                {id: 2, author: "Jordan Walke", text: "This is *another* comment!!"}
-            ];
-
-            var CommentBox = React.createClass({
-                getInitialState: function() {
-                    return {data: []};
-                },
-                handleCommentSubmit: function(comment) {
-                    var comments = this.state.data;
-                    comment.id = Date.now();
-                    var newComments = comments.concat([comment]);
-                    this.setState({data: newComments});
-                    $.ajax({
-                        url: this.props.url,
-                        dataType: 'json',
-                        type: 'POST',
-                        data: comment,
-                        success: function(data) {
-                            this.setState({data: data});
-                        }.bind(this),
-                        error: function(xhr, status, err) {
-                            this.setState({data: comments});
-                            console.error(this.props.url, status, err.toString());
-                        }.bind(this)
-                    });
-                },
-                loadCommentsFromServer: function() {
-                    $.ajax({
-                        url: this.props.url,
-                        dataType: 'json',
-                        cache: false,
-                        success: function(data) {
-                            this.setState({data: data});
-                        }.bind(this),
-                        error: function(xhr, status, err) {
-                            console.error(this.props.url, status, err.toString());
-                        }.bind(this)
-                    });
-                },
-                componentDidMount: function() {
-                    this.loadCommentsFromServer();
-                    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-                },
-                render: function() {
-                    return (
-                        <div className="commentBox">
-                            <h1>Comments</h1>
-                            <CommentList data={this.state.data} />
-                            <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-                        </div>
-                    );
-                }
-            });
-
-            var CommentList = React.createClass({
-                render: function() {
-                    var commentNodes = this.props.data.map(function(comment) {
-                        return (
-                            <Comment author={comment.author} key={comment.id}>
-                                {comment.text}
-                            </Comment>
-                        );
-                    });
-                    return (
-                        <div className="commentList">
-                            {commentNodes}
-                        </div>
-                    );
-                }
-            });
-
-            var Comment = React.createClass({
-                rawMarkup: function() {
-                    var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
-                    return { __html: rawMarkup };
-                },
-                render: function() {
-                    return (
-                        <div className="comment">
-                            <h2 className="commentAuthor">
-                                {this.props.author}
-                            </h2>
-                            <span dangerouslySetInnerHTML={this.rawMarkup()} />
-                        </div>
-                    );
-                }
-            });
-
-            var CommentForm = React.createClass({
-                getInitialState: function() {
-                    return {author: '', text: ''};
-                },
-                handleAuthorChange: function(e) {
-                    this.setState({author: e.target.value});
-                },
-                handleTextChange: function(e) {
-                    this.setState({text: e.target.value});
-                },
-                handleSubmit: function(e) {
-                    e.preventDefault();
-                    var author = this.state.author.trim();
-                    var text = this.state.text.trim();
-                    if (!text || !author) {
-                        return;
+            var JsonFormatter = {
+                stringify: function (cipherParams) {
+                    var jsonObj = {
+                        ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+                    };
+                    if (cipherParams.iv) {
+                        jsonObj.iv = cipherParams.iv.toString();
                     }
+                    if (cipherParams.salt) {
+                        jsonObj.s = cipherParams.salt.toString();
+                    }
+                    return JSON.stringify(jsonObj);
+                },
 
-                    this.props.onCommentSubmit({author: author, text: text});
-                    this.setState({author: '', text: ''});
+                parse: function (jsonStr) {
+                    var jsonObj = JSON.parse(jsonStr);
+                    var cipherParams = CryptoJS.lib.CipherParams.create({
+                        ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+                    });
+                    if (jsonObj.iv) {
+                        cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv)
+                    }
+                    if (jsonObj.s) {
+                        cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s)
+                    }
+                    return cipherParams;
+                }
+            };
+
+            var Page = React.createClass({
+
+                handleEncryptButtonClick: function () {  
+                    var key = "11dsfsdasdfsdaf1";
+                    var message = $('textarea[name="db"]').val();
+                    var preTEXT = "dbData[[[!";
+                    var postTEXT = "!]]]";
+                    message = message.substring(preTEXT.length,message.length-postTEXT.length);
+                    console.log(message.length);
+
+                    while(true){
+                        var encrypted = CryptoJS.AES.encrypt(message, key, { format: JsonFormatter });
+                        var jsonText = JsonFormatter.stringify(encrypted);
+                        if(jsonText.length < 50000) {
+                            message = jsonText;
+                        } else {
+                            $('textarea[name="db"]').val(preTEXT+message+postTEXT);
+                            break;
+                        }
+                    }
+                },
+
+                handleDecryptButtonClick: function () {
+                    var key = "11dsfsdasdfsdaf1";
+
+                    var message = $('textarea[name="db"]').val();
+                    var preTEXT = "dbData[[[!";
+                    var postTEXT = "!]]]";
+                    message = message.substring(preTEXT.length,message.length-postTEXT.length);
+
+                    var encrypted = JsonFormatter.parse(message);
+
+                    try {
+                        while(true){
+                            var decrypted= CryptoJS.AES.decrypt(encrypted, key, { format: JsonFormatter });
+                            encrypted = decrypted.toString(CryptoJS.enc.Utf8);
+                        }
+                    }
+                    catch(err) {
+                        console.log(encrypted.length);
+                       $('textarea[name="db"]').val(preTEXT+encrypted+postTEXT);
+                    }
+                },
+                handleHTTP: function () { 
+                   $(document).ready(function(){
+                        var container = $('#target');
+
+                        container.attr('tabIndex','-1');
+
+                        $('.ajaxtrigger').click(function(){
+                            var trigger = $(this);
+                            var url = trigger.attr('href');
+                            if(!trigger.hasClass('loaded')){
+                                trigger.append('<span></span>');
+                                trigger.addClass('loaded');
+                                var msg = trigger.find('span').last();
+                            } else {
+                                var msg = trigger.find('span').last();
+                            }
+                            doAjax(url,msg,container);
+                            return false;
+                        });
+                      
+                        function doAjax(url,msg,container){
+                        
+                        if(url.match('^http')){
+                            msg.removeClass('error');
+                            msg.html(' (loading...)');
+                            $.getJSON("http://query.yahooapis.com/v1/public/yql?"+
+                                    "q=select%20*%20from%20html%20where%20url%3D%22"+
+                                    encodeURIComponent(url)+
+                                    "%22&format=xml'&callback=?",
+                            function(data){
+                                if(data.results[0]){
+                                    ScimData(data.results[0]);
+                                    msg.html(' (got it!)');
+                                } else {
+                                    msg.html(' (error!)');
+                                }
+                            });
+                        } else {
+                           console.log('not http!');
+                        }
+                    }
+                    function ScimData(data){
+                        var s = data.search(/dbData\[\[\[.*/i);
+                        var e = data.search(/!]]]/i);
+                        $('textarea[name="db"]').val(data.substring(s,e+4));
+                    }
+                });
                 },
                 render: function() {
                     return (
-                        <form className="commentForm" onSubmit={this.handleSubmit}>
-                            <input
-                                className="comment-input-name"
-                                type="text"
-                                placeholder="Your name"
-                                value={this.state.author}
-                                onChange={this.handleAuthorChange} />
-                            <input
-                                className="comment-input-message"
-                                type="text"
-                                placeholder="Say something..."
-                                value={this.state.text}
-                                onChange={this.handleTextChange} />
-                            <input className="comment-input-button" type="submit" value="Post" />
-                        </form>
+                        <div>
+                            <h1>Db encryption</h1>
+                            <textarea 
+                                name="db"
+                                className="text-input"
+                                onfocus="this.value=''; setbg('#e5fff3');" 
+                                onblur="setbg('white')">
+                                Enter db...
+                            </textarea>
+                            <button className='command-button' onClick={this.handleEncryptButtonClick}>Encrypt</button>
+                            <button className='command-button' onClick={this.handleDecryptButtonClick}>Decrypt</button>
+                            <button href="http://freetexthost.com/6r4erg62fm" className='command-button ajaxtrigger' onClick={this.handleHTTP}>HTTP</button>
+                        </div>
                     );
                 }
             });
-      
             ReactDOM.render(
-                <CommentBox url="/api/comments" pollInterval={2000} />,
+                <Page />,
                 document.getElementById('content')
             );
         </script>
