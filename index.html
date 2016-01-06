@@ -2,155 +2,161 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>React Tutorial</title>
-        <!-- Not present in the tutorial. Just for basic styling. -->
-        <link rel="stylesheet" href="css/base.css" />
+        <title>Peter Heesterman</title>
+
+
+        <!--  Styling. -->
+        <link rel="stylesheet" href="css/page.css" />
+        <link rel="stylesheet" href="css/navigation.css" />
+
+
+        <!--  Scripts. -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
-        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
     </head>
     <body>
-        <div class="main-page" id="content"></div>
-        
+        <div class="page" id="content"></div>
+
         <script type="text/babel">
-
-            var JsonFormatter = {
-                stringify: function (cipherParams) {
-                    var jsonObj = {
-                        ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
-                    };
-                    if (cipherParams.iv) {
-                        jsonObj.iv = cipherParams.iv.toString();
-                    }
-                    if (cipherParams.salt) {
-                        jsonObj.s = cipherParams.salt.toString();
-                    }
-                    return JSON.stringify(jsonObj);
-                },
-
-                parse: function (jsonStr) {
-                    var jsonObj = JSON.parse(jsonStr);
-                    var cipherParams = CryptoJS.lib.CipherParams.create({
-                        ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
-                    });
-                    if (jsonObj.iv) {
-                        cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv)
-                    }
-                    if (jsonObj.s) {
-                        cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s)
-                    }
-                    return cipherParams;
-                }
-            };
-
             var Page = React.createClass({
-
-                handleEncryptButtonClick: function () {  
-                    var key = "11dsfsdasdfsdaf1";
-                    var message = $('textarea[name="db"]').val();
-                    var preTEXT = "dbData[[[!";
-                    var postTEXT = "!]]]";
-                    message = message.substring(preTEXT.length,message.length-postTEXT.length);
-                    console.log(message.length);
-
-                    while(true){
-                        var encrypted = CryptoJS.AES.encrypt(message, key, { format: JsonFormatter });
-                        var jsonText = JsonFormatter.stringify(encrypted);
-                        if(jsonText.length < 50000) {
-                            message = jsonText;
-                        } else {
-                            $('textarea[name="db"]').val(preTEXT+message+postTEXT);
-                            break;
-                        }
-                    }
+                getInitialState: function() {
+                   return {
+                       selectedDestination: "None"
+                   };
                 },
-
-                handleDecryptButtonClick: function () {
-                    var key = "11dsfsdasdfsdaf1";
-
-                    var message = $('textarea[name="db"]').val();
-                    var preTEXT = "dbData[[[!";
-                    var postTEXT = "!]]]";
-                    message = message.substring(preTEXT.length,message.length-postTEXT.length);
-
-                    var encrypted = JsonFormatter.parse(message);
-
-                    try {
-                        while(true){
-                            var decrypted= CryptoJS.AES.decrypt(encrypted, key, { format: JsonFormatter });
-                            encrypted = decrypted.toString(CryptoJS.enc.Utf8);
-                        }
-                    }
-                    catch(err) {
-                        console.log(encrypted.length);
-                       $('textarea[name="db"]').val(preTEXT+encrypted+postTEXT);
-                    }
-                },
-                handleHTTP: function () { 
-                   $(document).ready(function(){
-                        var container = $('#target');
-
-                        container.attr('tabIndex','-1');
-
-                        $('.ajaxtrigger').click(function(){
-                            var trigger = $(this);
-                            var url = trigger.attr('href');
-                            if(!trigger.hasClass('loaded')){
-                                trigger.append('<span></span>');
-                                trigger.addClass('loaded');
-                                var msg = trigger.find('span').last();
-                            } else {
-                                var msg = trigger.find('span').last();
-                            }
-                            doAjax(url,msg,container);
-                            return false;
-                        });
-                      
-                        function doAjax(url,msg,container){
-                        
-                        if(url.match('^http')){
-                            msg.removeClass('error');
-                            msg.html(' (loading...)');
-                            $.getJSON("http://query.yahooapis.com/v1/public/yql?"+
-                                    "q=select%20*%20from%20html%20where%20url%3D%22"+
-                                    encodeURIComponent(url)+
-                                    "%22&format=xml'&callback=?",
-                            function(data){
-                                if(data.results[0]){
-                                    ScimData(data.results[0]);
-                                    msg.html(' (got it!)');
-                                } else {
-                                    msg.html(' (error!)');
-                                }
-                            });
-                        } else {
-                           console.log('not http!');
-                        }
-                    }
-                    function ScimData(data){
-                        var s = data.search(/dbData\[\[\[.*/i);
-                        var e = data.search(/!]]]/i);
-                        $('textarea[name="db"]').val(data.substring(s,e+4));
-                    }
-                });
+                onChangeDestination: function (newDestination) {
+                    this.setState({selectedDestination: newDestination});
                 },
                 render: function() {
+
+                    var isSideBarShowing = false;
+
+                    var content;
+                    switch (this.state.selectedDestination) {
+                        case 'None':
+                            content =   (<div className='beautiful'>
+                                            <p>The world is wonderful, is it not?</p>
+                                        </div>);
+                            break;
+                        case 'About':
+                            content =   (<div className='beautiful'>
+                                            <p>About</p>
+                                        </div>);
+                            break;
+                        case 'Interests':
+                            content =   (<div className='beautiful'>
+                                            <p>Interests</p>
+                                        </div>);
+                            break;
+                        case 'Projects':
+                            content =   (<div className='beautiful'>
+                                            <p>Projects</p>
+                                        </div>);
+                            break;
+                        default:
+                            break;
+                    }
+
+
                     return (
-                        <div>
-                            <h1>Db encryption</h1>
-                            <textarea 
-                                name="db"
-                                className="text-input"
-                                onfocus="this.value=''; setbg('#e5fff3');" 
-                                onblur="setbg('white')">
-                                Enter db...
-                            </textarea>
-                            <button className='command-button' onClick={this.handleEncryptButtonClick}>Encrypt</button>
-                            <button className='command-button' onClick={this.handleDecryptButtonClick}>Decrypt</button>
-                            <button href="http://freetexthost.com/6r4erg62fm" className='command-button ajaxtrigger' onClick={this.handleHTTP}>HTTP</button>
+                        <div class>
+                            <Header
+                                title='Peter Heesterman'
+                                destinations={['About', 'Interests', 'Projects']}
+                                onChangeDestination={this.onChangeDestination}
+                            />
+                            <div className='background'>
+                                <SideBar
+                                    isSideBarShowing={isSideBarShowing}
+                                >
+
+                                </SideBar>
+                                <MainBar
+                                    isSideBarShowing={isSideBarShowing}
+                                >
+                                    {content}
+                                </MainBar>
+                            </div>
+                        </div>
+                    );
+                }
+            });
+            var Header = React.createClass({
+                render: function() {
+
+                    // Title
+                    var classes = 'page-header-inner-title ' + (this.props.centerTitle ? 'center-text' : '');
+                    var title = <div className={classes}>{this.props.title}</div>;
+
+                    // Navigation bar
+                    var navigationBar = <NavigationBar
+                                            onChangeDestination={this.props.onChangeDestination}
+                                            destinations={this.props.destinations}
+                                        />;
+
+                    return (
+                        <div className='page-header'>
+                            <div className='page-header-inner'>
+                                <div className='portraitPhoto'></div>
+                                {title}
+                                {navigationBar}
+                            </div>
+                        </div>
+                    );
+                }
+            });
+            var NavigationBar = React.createClass({
+                onChangeDestination: function(e) {
+                    this.props.onChangeDestination(e.target.getAttribute('value'));
+                },
+                render: function() {
+
+                    var destinations = this.props.destinations;
+                    var self = this;
+                    var navigationOptions = destinations.map(function (name) {
+                        return (
+                            <div className='navigation-bar-destination' onClick={self.onChangeDestination}>
+                                <span value={name} className='navigation-bar-destination-label'>
+                                    {name}
+                                </span>
+                            </div>
+                        );
+                    });
+
+                    return (
+                        <div className='navigation-bar'>
+                                {navigationOptions}
+                        </div>
+                    );
+                }
+            });
+
+            var SideBar = React.createClass({
+                render: function() {
+
+                    var classes = ['page-sidebar'];
+                    classes.push(this.props.isSideBarShowing ? "" : "hidden");
+
+                    return (
+                        <div className={classes.join(' ')}>
+                            {this.props.children}
+                        </div>
+                    );
+                }
+            });
+
+            var MainBar = React.createClass({
+                render: function() {
+
+                    var classes = ['page-main'];
+                    classes.push(this.props.isSideBarShowing ? "slim" : "wide");
+
+                    return (
+                        <div className={classes.join(' ')}>
+                            {this.props.children}
                         </div>
                     );
                 }
