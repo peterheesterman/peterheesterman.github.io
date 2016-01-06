@@ -1,4 +1,5 @@
 
+// Page level styles
 
 .center {
     margin-left: auto;
@@ -14,7 +15,7 @@
 }
 
 .background {
-    background: url(../images/blueblob.jpg) no-repeat center center fixed;
+    background: url(http://7-themes.com/data_images/out/65/6995269-nature-background-wallpaper.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -31,7 +32,7 @@
 }
 
 .portraitPhoto {
-    background: url(../images/SOT.png);
+    background: url(http://www.nzhistory.net.nz/files/styles/fullsize/public/images/michael-joseph-savage-1935.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
