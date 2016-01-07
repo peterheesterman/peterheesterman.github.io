@@ -1,0 +1,13 @@
+#mainChessBoard {
+    width: 320px;
+    height: 315px;
+    border:1px solid black;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+ #mainChessBoard div {
+    width: 40px;
+    height: 40px;
+    float:left;
+}
