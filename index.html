@@ -8,7 +8,9 @@
         <!--  Styling. -->
         <link rel="stylesheet" href="css/page.css" />
         <link rel="stylesheet" href="css/navigation.css" />
+        <link rel="stylesheet" href="css/chess.css" />
 
+        <script src="scripts/myscripts.js"></script>
 
         <!--  Scripts. -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
@@ -25,6 +27,7 @@
                 getInitialState: function() {
                    return {
                        selectedDestination: "None"
+
                    };
                 },
                 onChangeDestination: function (newDestination) {
@@ -54,12 +57,13 @@
                         case 'Projects':
                             content =   (<div className='beautiful'>
                                             <p>Projects</p>
+                                            <div id="mainChessBoard"></div>
                                         </div>);
+                                        app.kick();
                             break;
                         default:
                             break;
                     }
-
 
                     return (
                         <div class>
@@ -79,6 +83,19 @@
                                 >
                                     {content}
                                 </MainBar>
+                            </div>
+                        </div>
+                    );
+                }
+            });
+            var ChessBoard = React.createClass({
+                render: function() {
+                    return (
+                        <div className='page-header'>
+                            <div className='page-header-inner'>
+                                <div className='portraitPhoto'></div>
+                                {title}
+                                {navigationBar}
                             </div>
                         </div>
                     );
