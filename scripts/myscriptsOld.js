@@ -33,18 +33,18 @@ var app = {
         }
     },
     placeQueens: function () {
-
         var constants = {
             boardSize : 8,
             maxSteps: 100000
         };
 
         var variables = {
-            steps : 0,
-            randoms: 0
+            solution : [1,2,3,4,5,6,7,8],
+            solutionScore : 100,
+            steps : 0
         };
 
-        var checkDiagonals = function(solution, boardSize) {
+        var checkDiagonals = function(solution,boardSize) {
             var conflicts = 0;
             var dx = [-1, 1, -1, 1], dy = [-1, 1, 1, -1];
             var currentQueenX, currentQueenY;
@@ -97,25 +97,10 @@ var app = {
 
             return solution;
         };
-        var tweakSolution = function (board, boardSize) {
 
-            var selectedFirstQueen = Math.floor(Math.random()*boardSize);
-            var selectedSecondQueen;
-            do {
-                selectedSecondQueen = Math.floor(Math.random()*boardSize);
-            } while (selectedFirstQueen == selectedSecondQueen);
-
-            var temp = board[selectedFirstQueen];
-            board[selectedFirstQueen] = board[selectedSecondQueen];
-            board[selectedSecondQueen] = temp;
-
-            return board;
-        };
-
-        var tempSolution = makeSolution(constants.boardSize);
 
         do {
-            var tempSolution = tweakSolution(tempSolution,constants.boardSize);
+            var tempSolution = makeSolution(constants.boardSize);
             var tempScore = checkDiagonals(tempSolution,constants.boardSize);
             if(tempScore==0){
                 variables.solution = tempSolution;
@@ -135,6 +120,9 @@ var app = {
         } while (1);
 
         this.show(variables.solution);
+        //console.log('The solution : ',variables.solution);
+        //console.log('It took ' + variables.steps +' steps');
+
     },
     kick: function () {
         this.placeQueens();
@@ -142,5 +130,8 @@ var app = {
         window.setInterval(function(){
                 self.placeQueens();
         }, 400);
+    },
+    test: function () {
+        console.log('Yay you ran the test!');
     }
 };

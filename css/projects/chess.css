@@ -1,12 +1,12 @@
-#mainChessBoard {
+#thermal-annealing-n-queens-chess-baord {
     width: 320px;
-    height: 315px;
+    height: 320px;
     border:1px solid black;
     margin-right: auto;
     margin-left: auto;
 }
 
- #mainChessBoard div {
+ #thermal-annealing-n-queens-chess-baord div {
     width: 40px;
     height: 40px;
     float:left;
