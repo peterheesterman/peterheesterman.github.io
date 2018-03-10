@@ -1,8 +1,0 @@
-This is a file to keep track of the up coming stuff to my site.
-
-> Neural Net project Tab. 
-> Expand explaination of projects.
-> Make mobile friendly.
-> Add things that I am a fan of.
-
-> Link to CObi Blog.
