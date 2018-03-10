@@ -1,26 +1,17 @@
 
-.section-aboutme
+.background
 {
-    width: 100%;
-    text-align: center;
-	padding: 60px 0 20px 0;
-	color: #888888;
-	background: #3A3A42;
-    min-height: 380px;
-	background-image: url("../images/background.png");
-	background-size: contain;
-	background-repeat: no-repeat;
-	filter: brightness(50%);
+	filter: brightness(40%);
 }
 
-.section-interests
+.section.interests
 {
     width: 100%;
     text-align: center;
     margin-bottom: 40px;
 }
 
-    .section-interests h2
+    .section.interests h2
     {
         color: #0088BD;
         font-size: 3em;
@@ -28,7 +19,7 @@
         font-family: sans-serif;
     }
 
-	.section-interests .sub-header
+	.section.interests .sub-header
 	{
 		margin: auto;
 		max-width: 750px;
@@ -37,14 +28,14 @@
 		line-height:1.5em;
 	}
 
-.section-projects
+.section.projects
 {
     width: 100%;
     text-align: center;
     margin-bottom: 40px;
 }
 
-	.section-projects h2
+	.section.projects h2
 	{
         color: #0088BD;
         font-size: 3em;
