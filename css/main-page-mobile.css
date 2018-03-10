@@ -1,0 +1,9 @@
+
+@media screen and (max-width: 500px) 
+{
+    .section.interests
+    {
+        padding: 10px;
+        width: calc(100% - 20px);
+    }    
+}
