@@ -8,7 +8,7 @@ var app = {
         // Clear the old board.
         document.getElementById('thermal-annealing-n-queens-chess-baord').innerHTML = "";
 
-        // If not inputs are give place queens on the diagonal.
+        // If no inputs are give place queens on the diagonal.
         if(!inputs) {
             inputs = [1,2,3,4,5,6,7,8,9];
         }
