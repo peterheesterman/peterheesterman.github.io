@@ -1,13 +1,26 @@
+
+
+@media screen and (max-width: 500px) 
+{
+    #thermal-annealing-n-queens-chess-baord.chess-sizer {
+        width: 330px;
+        height: 330px;
+    }
+}
+
+.chess-sizer {
+    width: 120px;
+    height: 120px;
+}
+
 #thermal-annealing-n-queens-chess-baord {
-    width: 320px;
-    height: 320px;
     border:1px solid black;
     margin-right: auto;
     margin-left: auto;
 }
 
  #thermal-annealing-n-queens-chess-baord div {
-    width: 40px;
-    height: 40px;
+    width: 12.5%;
+    height: 12.5%;
     float:left;
 }
