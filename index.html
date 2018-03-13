@@ -1,66 +1,131 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <!-- Properties -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Peter Heesterman</title>
+    <head>
+        <!-- Properties -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Peter Heesterman</title>
 
-    <!-- Styles -->
-        <!-- General -->
-        <link href="css/common.css" rel="stylesheet" />
-        <link href="css/main-page.css" rel="stylesheet" />
-        <link href="css/main-page-mobile.css" rel="stylesheet" />
+        <!-- Styles -->
+            <!-- Semantic Ui -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" />
+            
+            <!-- Styles for projects -->
+            <link rel="stylesheet" href="css/projects/chess.css" />
 
-        <!-- Styles for projects -->
-        <link rel="stylesheet" href="css/projects/chess.css" />
+        <!-- Scripts -->
+            <!-- Scripts for projects. -->
+            <script src="scripts/myscripts.js"></script>
 
-
-    <!-- Scripts -->
-        <!-- Scripts for projects. -->
-        <script src="scripts/myscripts.js"></script>
-
-</head>
-<body>
-    <header>
-        <div class="top-banner">
-            <img class="logo" src="images/logo.png"/>
-            <div class="header-options">
-                <a class="no-link-styles" href="mailto:heesterman.peter+github@gmail.com">
-                    <div class="header-option">Email</div>
-                </a>
-                <a class="no-link-styles" href="https://github.com/peterheesterman/notes">
-                    <div class="header-option">Learnings</div>
-                </a>
+    </head>
+    <body>
+        <img class="ui fluid image" style="filter: brightness(105%);" src="images/background.png">
+        <div class="ui container" style="margin-top:3em">
+            <div class="ui four stackable cards">
+                <div class="card">
+                    <div class="image">
+                        <img src="/images/avatar2/large/kristy.png">
+                    </div>
+                    <div class="content">
+                        <h3 class="ui header medium">About me</h3>
+                        <div class="description">
+                            My name is Peter Heesterman, I am a software developer by profession and an electronics engineer by training. I live in Auckland, New Zealand.
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a href="https://github.com/peterheesterman/about-me/blob/master/README.md">
+                        <i class="address card outline icon large"></i>
+                        Read more...
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image">
+                        <img src="/images/avatar2/large/kristy.png">
+                    </div>
+                    <div class="content">
+                        <div class="description">
+                            <div class="summary">
+                                <h3 class="ui header medium">Contact me</h3>
+                                <div>    
+                                    <a href="https://github.com/peterheesterman">
+                                        <i class="github square icon large"></i> Github
+                                    </a>
+                                </div>
+                                <div>    
+                                    <a href="https://twitter.com/walwus">
+                                        <i class="twitter square icon large"></i> Twitter
+                                    </a>
+                                </div>
+                                <div>    
+                                    <a href="mailto:heesterman.peter+github@gmail.com">
+                                        <i class="envelope icon large"></i> Email
+                                    </a>
+                                </div>
+                                <div>    
+                                    <a href="https://nz.linkedin.com/in/peter-heesterman-62b014106">
+                                        <i class="linkedin icon large"></i> LinkedIn
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                            <a href="mailto:heesterman.peter+github@gmail.com">
+                        <i class="comments outline icon large"></i>
+                            Chat now (away)
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image">
+                        <img src="/images/avatar2/large/kristy.png">
+                    </div>
+                    <div class="content">
+                        <h3 class="ui header medium">Interests</h3>
+                        <div class="description">
+                            Programming, Entrepreneurship, Business, Social Justice, Game Theory, Economics, Language, Mathematics, Robotics, Psychology
+                        </div>
+                        <br>
+                        <div class="description">
+                            Take a peek below to see what I am studying at the moment.
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a href="https://github.com/peterheesterman/notes/blob/master/README.md">
+                        <i class="book icon large"></i>
+                        Recent learnings
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image">
+                        <div class="chess-sizer" id="thermal-annealing-n-queens-chess-baord"></div>
+                    </div>
+                    <div class="content">
+                        <h3 class="ui header medium">Projects</h3>
+                        <div>    
+                            <a href="">
+                                <i class="tablet alternate icon large"></i> Shef
+                            </a>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a href="https://github.com/peterheesterman/projects/blob/master/README.md">
+                        <i class="ordered list icon large"></i>
+                            All projects
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
-
-    <div class="sections">
-        <img class="background" src="images/background.png" width="100%"/>
-        <div class="section">
-            <h2>Peter Heesterman</h2>
-            <div class="split-pane">
-                <div>
-                    <p>
-                        Software developer by profession, an electronics engineer by training and a deep thinker by habit
-                    </p>    
-                    <p> 
-                        Passionate about business, programming, social justice, game theory, economics, language, mathematics, robotics, psychology
-                    </p>
-                </div>
-                <div>
-                    <div class="chess-sizer" id="thermal-annealing-n-queens-chess-baord"></div>
-                </div>
-            </div>
+        <div style="margin-top:3em; background-color: #E6E6E6;">
+            <div class="ui center aligned container" style="padding:2em;">
+            <div class="ui"><b>&copy 2018 Peter Heesterman</b> | <a href="mailto:heesterman.peter+github@gmail.com">heesterman.peter@gmail.com</a> | Auckland, New Zealand</div>
         </div>
     </div>
-
-    <footer>
-        <div><b>&copy 2018 Peter Heesterman</b> | <a href="mailto:heesterman.peter+github@gmail.com">heesterman.peter@gmail.com</a> | Auckland, New Zealand</div>
-    </footer>
     <script type="text/javascript">
         app.kick();
     </script>
-</body>
+    </body>
 </html>
