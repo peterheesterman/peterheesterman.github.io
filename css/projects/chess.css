@@ -1,5 +1,5 @@
 
-@media screen and (max-width: 500px) 
+@media screen and (max-width: 764px)
 {
     #thermal-annealing-n-queens-chess-baord.chess-sizer {
         width: 350px;
@@ -7,9 +7,27 @@
     }
 }
 
+@media screen and (max-width: 990px) and (min-width: 765px) 
+{
+    #thermal-annealing-n-queens-chess-baord.chess-sizer {
+        width: 165px;
+        height: 165px;
+    }
+}
+
+
+@media screen and (max-width: 1200px) and (min-width: 991px) 
+{
+    #thermal-annealing-n-queens-chess-baord.chess-sizer {
+        width: 217px;
+        height: 217px;
+    }
+}
+
+
 .chess-sizer {
-    width: 120px;
-    height: 120px;
+    width: 266px;
+    height: 266px;
 }
 
 #thermal-annealing-n-queens-chess-baord {
