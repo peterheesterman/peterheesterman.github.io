@@ -1,0 +1,15 @@
+
+.column {
+  max-width: 500px;
+  margin: 0 auto; 
+}
+
+.inline {
+  display: inline-block;
+}
+
+.right {
+  float: right;
+}
+
+

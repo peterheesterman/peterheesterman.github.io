@@ -1,0 +1,13 @@
+
+.column {
+  max-width: 500px;
+  margin: 0 auto; 
+}
+
+.date {
+  margin-top: -1em;
+}
+
+p {
+ font-size: 1.05em;
+}

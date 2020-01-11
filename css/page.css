@@ -8,4 +8,12 @@
 
 .body {
   background: #f2f6f5;
+  font-size: 1.25em;
+  text-align: justify;
+}
+
+.project-image-tile,
+.podcast-image-tile {
+  width: calc(100% - 10px);
+  margin: 5px;
 }
