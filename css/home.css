@@ -12,4 +12,22 @@
   float: right;
 }
 
+.mobile-profile-pic {
+  display: none;
+}
 
+@media only screen and (max-width: 370px) {
+  h1 {
+    text-align: center;
+  }
+
+  .profile-pic {
+    display: none;
+  }
+
+  .mobile-profile-pic {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+}

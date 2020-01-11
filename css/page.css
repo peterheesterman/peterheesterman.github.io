@@ -18,3 +18,12 @@
   width: calc(100% - 10px);
   margin: 5px;
 }
+
+.footer {
+  clear: both;
+  text-align: center;
+  color: white;
+  padding: 5px;
+  background: #1b1b1b;
+  margin-top: 2em;
+}
