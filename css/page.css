@@ -1,33 +1,36 @@
 
-/*
- * lightest: #f2f6f5
- * grey: #c8dad3
- * highlight: #93b5b3
- * dark: #63707e
- * */
-
 .body {
-  background: #f2f6f5;
-  font-size: 1.25em;
-  text-align: justify;
-  font-family: "Lato";
+    background: #fcf6cf6;
+    font-size: 1.25em;
+    font-family: 'Montserrat', sans-serif;
+    width: 85%;
+    max-width: 800px;
+    margin: 4em auto;
+    color: rgba(117, 117, 117, 1);
 }
 
-.project-image-tile,
-.podcast-image-tile {
-  width: calc(100% - 10px);
-  margin: 5px;
+h1 {
+    font-weight: 700;
+    font-size: 2.3em;
+    color: black;
+    margin-bottom: 0em;
 }
 
-.footer {
-  clear: both;
-  text-align: center;
-  color: white;
-  padding: 5px;
-  background: #1b1b1b;
-  margin-top: 2em;
+h3 {
+    font-weight: 700;
+    color: black;
 }
 
-.ui.menu {
-  margin: 0 !important;
+.links > a {
+    color: #959da5;
+    text-decoration: none;
+    fill: currentColor;
+}
+
+.list {
+    padding-top: 1.6em;
+}
+
+ul > li {
+    line-height: 1.3;
 }
