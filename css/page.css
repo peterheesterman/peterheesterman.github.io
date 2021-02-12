@@ -46,3 +46,24 @@ h3 {
 ul > li {
     line-height: 1.3;
 }
+
+@media only screen and (min-width:420px) and (max-width:550px) {
+    h1 {
+        font-size: 1.7em;
+    }
+}
+
+@media only screen and (min-width:361px) and (max-width:419px) {
+    h1 {
+        font-size: 1.4em;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    h1 {
+        font-size: 1.3em;
+    }
+    .body {
+        font-size: 1.2em;
+    }
+}
