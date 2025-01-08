@@ -53,27 +53,35 @@
   </div>
   <hr />
   <div class="list">
-    <div id='present'>
-      <div class='sections'>
-        <h3>Right now...</h3>
-        <button id='past-button' style="opacity: 0;"><span class='goto'>$ goto</span> past;</button>
-      </div>
+    <div class='sections'>
+        <h3 id='career-title'>Career</h3>
+        <h3 id='personal-title' class='dim'>Personal</h3>
+        <h3 id='history-title' class='dim'>History</h3>
+    </div>
+    <div id='career'>
       <ul>
-        <li>I live in <a href="https://en.wikipedia.org/wiki/Christchurch">Ōtautahi</a>, New Zealand with my 👪</li>
-        <li>I love to 🧗 and 🏃 for fun</li>
-        <li>I could easily be called a 🤓, ¯\_(ツ)_/¯</li>
-        <li>I read 📚 and listen to 🎙️ regularly. I try to avoid TV and netflix...</li>
-        <li>I am the engineering manager of the capture team at <a href="https://www.loom.com"><img style='padding-right: 4px; position: relative; top: 2px;' src="https://cdn.loom.com/assets/favicons-loom/favicon-16x16.png" />Loom</a> - we are changing the way people communicate at work</li>
+        <li>I graduated with First-Class Honors in Electronic and Computer Systems</li>
+        <li>I joined End Game, a services company, as the fourth employee. Progressing from intern to a combination of tech lead and business development</li>
+        <li>I left to join a startup called Mish Guru and learn how product companies work</li>
+        <li>Most recently, I was an <em>engineer</em> then a engineering manager at <a href="https://www.loom.com"><img style='padding-right: 4px; position: relative; top: 2px;' src="https://cdn.loom.com/assets/favicons-loom/favicon-16x16.png" />Loom</a></li> responsible for the capture team.
+        <li>Atlassian purchased the company in November 2023, I left in Mid 2024.</li>
+        <li>Currently paused. . .</li>
       </ul>
     </div>
-    <div style='display:none; opacity: 0;' id='past'>
-      <div class='sections'>
-        <h3>My past</h3>
-        <button id='pressent-button'><span class='goto'>$ goto</span> pressent;</button>
-      </div>
+    <div style='display:none; opacity: 0;' id='personal'>
       <ul>
-        <li>Grew up in <a href="https://en.wikipedia.org/wiki/West_Papua_(province)">West Papua</a></li>
-        <li>Disassembled 💻</li>
+        <li>I am a 🤓</li>
+        <li>I from <a href="https://en.wikipedia.org/wiki/Christchurch">Ōtautahi</a>, New Zealand</li>
+        <li>I love to 🧗 and 🏃 for fun</li>
+        <li>I enjoy time with my boys</li>
+        <li>I read 📚 and listen to 🎙️ regularly. I  avoid TV and streaming services.</li>
+        <li>I know English and have functional Bengali</li>
+      </ul>
+    </div>
+    <div style='display:none; opacity: 0;' id='history'>
+      <ul>
+        <li>Grew up in <a href="https://en.wikipedia.org/wiki/Western_New_Guinea">Papua</a></li>
+        <li>Disassembled 💻 starting at age four</li>
         <li>Lots of <a href="https://en.wikipedia.org/wiki/Commander_Keen">Commander Keen</a>, <a
             href="https://en.wikipedia.org/wiki/Age_of_Empires_(video_game)">Age of Empires</a>, <a
             href="https://en.wikipedia.org/wiki/Counter-Strike_(video_game)">Counter Strike</a> and <a
@@ -91,14 +99,18 @@
     </div>
   </div>
   <script type='text/javascript'>
-    const presentButton = document.getElementById('pressent-button');
-    const pastButton = document.getElementById('past-button');
-    const past = document.getElementById('past');
-    const present = document.getElementById('present');
+    const careerTitle = document.getElementById('career-title');
+    const personalTitle = document.getElementById('personal-title');
+    const historyTitle = document.getElementById('history-title');
+   console.log({ careerTitle, personalTitle, historyTitle })
+    const career = document.getElementById('career');
+    const personal = document.getElementById('personal');
+    const history = document.getElementById('history');
+
     function hide(ele, timing, done) {
       ele.style.transition = `opacity ${timing}ms ease-in`;
       ele.style.opacity = '0';
-      setTimeout(function () { 
+      setTimeout(function () {
         ele.style.display = 'none'
         done()
       }, timing);
@@ -116,13 +128,31 @@
       });
     }
     const swapSpeed = 100;
-    presentButton.addEventListener('click', function () { transition(past, present, swapSpeed)});
-    pastButton.addEventListener('click', function () { transition(present, past, swapSpeed)});
-
-    const second = 1000;
-    setTimeout(function () {
-      show(pastButton, 2 * second)
-    }, 5 * second)
+    function showCareer() {
+      careerTitle.classList.remove('dim');
+      personalTitle.classList.add('dim');
+      historyTitle.classList.add('dim');
+      transition(personal, career, swapSpeed);
+      transition(history, career, swapSpeed);
+    }
+    function showPersonal() {
+        console.log('showPersonal')
+      careerTitle.classList.add('dim');
+      personalTitle.classList.remove('dim');
+      historyTitle.classList.add('dim');
+      transition(career, personal, swapSpeed);
+      transition(history, personal, swapSpeed);
+    }
+    function showHistory() {
+      careerTitle.classList.add('dim');
+      personalTitle.classList.add('dim');
+      historyTitle.classList.remove('dim');
+      transition(career, history, swapSpeed);
+      transition(personal, history, swapSpeed);
+    }
+    careerTitle.addEventListener('click', showCareer);
+    personalTitle.addEventListener('click', showPersonal);
+    historyTitle.addEventListener('click', showHistory);
   </script>
 </body>
 
