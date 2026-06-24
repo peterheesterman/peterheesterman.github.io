@@ -76,17 +76,17 @@ button {
 
 @media only screen and (max-width:550px) {
     .body {
-        font-size: 0.85em;
+        font-size: 0.95em;
         margin: 1.5em auto;
         width: 90%;
     }
 
     h1 {
-        font-size: 1.6em;
+        font-size: 1.9em;
     }
 
     h3 {
-        font-size: 0.95em;
+        font-size: 1.05em;
     }
 
     .list {
